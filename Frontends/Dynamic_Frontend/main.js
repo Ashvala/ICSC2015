@@ -32,21 +32,6 @@ parseOrcLineAndRender = function(str){
     }
 
 }
-sanitize = function(orc_str){
-    args_arr = [];
-    args_start = orc_str.indexOf("[{");
-    args_end = orc_str.indexOf("}]");
-    args_str = orc_str.slice(args_start, args_end+2);
-    args_arr = args_str.split("\n");
-    str_arr = orc_str.split("\n");
-    console.log(str_arr.indexOf("[{"));
-    str_arr_final = str_arr.slice(0, str_arr.indexOf("[{"));
-    console.log(str_arr_final.indexOf("[{"));
-    console.log(args_str);
-    console.log(args_arr);
-    parseArgs(args_arr);
-    return str_arr_final;
-}
 
 parseOrc = function(str_arr){
     $(".parsed_knobs").html(" ");
@@ -79,33 +64,12 @@ $(document).ready(function(){
     $(".button").mouseout(function(){
 	   $(this).transition({scale: 1.0});
     }); //Button hover 2
+
     $(".key").click(function(){
 	console.log($(this).attr("data"));
 	var final_mesg = "note_message " + ($(this).attr("data"));
 	socket.emit('note_message', final_mesg);
     }); //Pressing the button
-
-    $(".button").click(function(){
-	$(this).transition({scale: 0.98}).transition({scale:1.0});
-	if($(this).attr("data") == "compile"){
-	    var orc = "instr 1\n " +
-		"kFilt chnget \"freq\"\n" +
-		"kReso chnget \"reso\"\n" +
-		"a1 oscili 0.8, cpsmidinn(p4)\n" +
-		"a2 butterbp a1, kFilt, kReso\n" +
-		"outs a2*2,a2*2\n" +
-		"endin"
-	    socket.emit('orc', orc);
-	} // Send a sample orchestra
-	if($(this).attr("data") == "score"){
-	    var score_event = "i 1 0 -1 60"
-	    socket.emit('sco', score_event);
-	    $(this).css("display", "none");
-	} // Send a midi note 60 forever.
-	if($(this).attr('data') == "stop"){
-	    csound.Pause();
-	} // Pause!
-    });
 
     $(".seq_button").click(function(){
 	   // Animation stuff here:
@@ -125,6 +89,7 @@ $(document).ready(function(){
 	   }
 	   console.log(seq_list);
     });
+
     $(".help_button").click(function(){
 	   $(".help_screen").fadeToggle(400);
     }); //Help screen.

@@ -133,29 +133,6 @@ $(document).ready(function(){
 	}
 	socket.emit('sco', final_mesg);
     }); //Pressing the button
-
-    $(".button").click(function(){
-	$(this).transition({scale: 0.98}).transition({scale:1.0});
-	if($(this).attr("data") == "compile"){
-	    var orc = "instr 1\n " +
-		"kFilt chnget \"freq\"\n" +
-		"kReso chnget \"reso\"\n" +
-		"a1 oscili 0.8, cpsmidinn(p4)\n" +
-		"a2 butterbp a1, kFilt, kReso\n" +
-		"outs a2*2,a2*2\n" +
-		"endin"
-	    socket.emit('orc', orc);
-	} // Send a sample orchestra
-	if($(this).attr("data") == "score"){
-	    var score_event = "i 1 0 -1 60"
-	    socket.emit('sco', score_event);
-	    $(this).css("display", "none");
-	} // Send a midi note 60 forever.
-	if($(this).attr('data') == "stop"){
-	    csound.Pause();
-	} // Pause!
-    });
-
     $(document).on("click", ".seq_button", function(){
 	$(this).transition({scale: 0.98}).transition({scale:1.0});
 	console.log($(this).attr("data-name"));
