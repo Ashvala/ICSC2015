@@ -1,5 +1,8 @@
 # Building Web Based interactive systems with Csound PNaCl and WebSockets
 ----
+Find the paper here:
+
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.50368.svg)](http://dx.doi.org/10.5281/zenodo.50368)
 
 ###Introduction:
 
